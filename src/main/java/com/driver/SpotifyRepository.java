@@ -49,10 +49,7 @@ public class SpotifyRepository {
     }
 
     public Artist createArtist(String name) {
-        for(Artist artistinDB: artists){
-            if(artistinDB.getName().equals(name))
-                return artistinDB;
-        }
+
         Artist newArtist = new Artist(name);
         artists.add(newArtist);
         return newArtist;
@@ -61,10 +58,7 @@ public class SpotifyRepository {
     public Album createAlbum(String title, String artistName) {
         //create artist obj
         Artist newArtist= createArtist(artistName);
-        for(Album album : albums){
-            if(album.getTitle().equals(title))
-                return  album;
-        }
+
         //create new album if not in our DB
         Album newAlbum = new Album(title);
         //adding album to listDB
@@ -72,9 +66,6 @@ public class SpotifyRepository {
 
         //putting all artist with their playlist
         List<Album> albumList = new ArrayList<>();
-        if(artistAlbumMap.containsKey(newArtist)){
-            albumList=artistAlbumMap.get(newArtist);
-        }
         albumList.add(newAlbum);
         artistAlbumMap.put(newArtist,albumList);
         return newAlbum;
@@ -174,16 +165,16 @@ public class SpotifyRepository {
         playlistSongMap.put(playlist,temp);
 
         User currUser= new User();
-        boolean flag= false;
+        int flag= 0;
         for(User user: users){
             if(user.getMobile().equals(mobile)){
                 currUser=user;
-                flag= true;
+                flag=1;
                 break;
             }
         }
-        if (flag==false){
-            throw new Exception("User does not exist");
+        if (flag==1){
+            throw new Exception("User  You are looking for is not in our database");
         }
 
         List<User> userslist = new ArrayList<>();
@@ -204,7 +195,6 @@ public class SpotifyRepository {
 
         return playlist;
     }
-
     public Playlist findPlaylist(String mobile, String playlistTitle) throws Exception {
         int flag =0;
         Playlist playlist = new Playlist();
@@ -216,9 +206,8 @@ public class SpotifyRepository {
             }
         }
         if (flag==0){
-            throw new Exception("Playlist does not exist");
+            throw new Exception("Playlist You are looking for is not in our database");
         }
-
         User currUser= new User();
         int flag2= 0;
         for(User user: users){
@@ -229,7 +218,7 @@ public class SpotifyRepository {
             }
         }
         if (flag2==0){
-            throw new Exception("User does not exist");
+            throw new Exception("User You are looking for is not in our database");
         }
 
         List<User> userslist = new ArrayList<>();
@@ -251,7 +240,6 @@ public class SpotifyRepository {
 
         return playlist;
     }
-
     public Song likeSong(String mobile, String songTitle) throws Exception {
         User currUser= new User();
         int flag2= 0;
@@ -263,23 +251,20 @@ public class SpotifyRepository {
             }
         }
         if (flag2==0){
-            throw new Exception("User does not exist");
+            throw new Exception("User   You are looking for is not in our database ");
         }
-
         Song song = new Song();
-        boolean flag = false;
+        int flag = 0;
         for(Song cursong : songs){
             if(cursong.getTitle().equals(songTitle)){
                 song=cursong;
-                flag=true;
+                flag=1;
                 break;
             }
         }
-        if (flag==false){
-            throw new Exception("Song does not exist");
+        if (flag==0){
+            throw new Exception("Song  You are looking for is not in our database");
         }
-
-        //public HashMap<Song, List<User>> songLikeMap;
         List<User> users = new ArrayList<>();
         if(songLikeMap.containsKey(song)){
             users=songLikeMap.get(song);
@@ -288,9 +273,6 @@ public class SpotifyRepository {
             users.add(currUser);
             songLikeMap.put(song,users);
             song.setLikes(song.getLikes()+1);
-
-
-//            public HashMap<Album, List<Song>> albumSongMap;
             Album album = new Album();
             for(Album curAlbum : albumSongMap.keySet()){
                 List<Song> temp = albumSongMap.get(curAlbum);
@@ -315,30 +297,30 @@ public class SpotifyRepository {
 
     public String mostPopularArtist() {
 
-        String name="";
-        int maxLikes = Integer.MIN_VALUE;
+        String PopularArtist="";
+        int maxLikes = -10000000;
         for(Artist art : artists){
             maxLikes= Math.max(maxLikes,art.getLikes());
         }
         for(Artist art : artists){
             if(maxLikes==art.getLikes()){
-                name=art.getName();
+                PopularArtist=art.getName();
             }
         }
-        return name;
+        return PopularArtist;
     }
 
     public String mostPopularSong() {
 
-        String name="";
-        int maxLikes = Integer.MIN_VALUE;
+        String mostPopular="";
+        int maxLikes = -10000000;
         for(Song song : songs){
             maxLikes=Math.max(maxLikes,song.getLikes());
         }
         for(Song song : songs){
             if(maxLikes==song.getLikes())
-                name=song.getTitle();
+                mostPopular=song.getTitle();
         }
-        return name;
+        return mostPopular;
     }
 }
