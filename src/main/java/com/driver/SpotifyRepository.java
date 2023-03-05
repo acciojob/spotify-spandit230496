@@ -123,7 +123,7 @@ public class SpotifyRepository {
 
             if(albumSongMap.containsKey(songAlbum)){
                 List<Song> list = albumSongMap.get(songAlbum);
-                l.add(song);
+                list.add(song);
                 albumSongMap.put(songAlbum,list);
             }else{
                 List<Song> songList = new ArrayList<>();
