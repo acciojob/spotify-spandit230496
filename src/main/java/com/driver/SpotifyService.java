@@ -45,18 +45,18 @@ public class SpotifyService {
         return spotifyRepository.findPlaylist(mobile, playlistTitle);
     }
 
-//    public Song likeSong(String mobile, String songTitle) throws Exception {
-//
-//        return spotifyRepository.likeSong(mobile, songTitle);
-//    }
+    public Song likeSong(String mobile, String songTitle) throws Exception {
 
-//    public String mostPopularArtist() {
-//        return spotifyRepository.mostPopularArtist();
-//
-//    }
-//
-//    public String mostPopularSong() {
-//
-//        return spotifyRepository.mostPopularSong();
-//    }
+        return spotifyRepository.likeSong(mobile, songTitle);
+    }
+
+    public String mostPopularArtist() {
+        return spotifyRepository.mostPopularArtist();
+
+    }
+
+    public String mostPopularSong() {
+
+        return spotifyRepository.mostPopularSong();
+    }
 }
