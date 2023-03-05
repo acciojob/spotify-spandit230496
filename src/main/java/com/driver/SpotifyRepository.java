@@ -272,17 +272,17 @@ public class SpotifyRepository {
         return playlist;
     }
 
-    public Song likeSong(String mobile, String songTitle) throws Exception {
-
-        User user = null;
-        Song newSong=new Song();
-
-            return newSong;
-
-    }
-
-    public String mostPopularArtist() {
-
-        return "";
-    }
+//    public Song likeSong(String mobile, String songTitle) throws Exception {
+//
+//        User user = null;
+//        Song newSong=new Song();
+//
+//            return newSong;
+//
+//    }
+//
+//    public String mostPopularArtist() {
+//
+//        return "";
+//    }
 }
